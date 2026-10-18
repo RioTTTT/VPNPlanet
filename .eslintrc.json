@@ -1,0 +1,52 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "prettier",
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:import/typescript"
+  ],
+  "plugins": ["@typescript-eslint", "prettier"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module"
+  },
+  "rules": {
+    "import/prefer-default-export": "off",
+    "max-len": [
+      "warn",
+      {
+        "code": 180
+      }
+    ],
+    "import/no-cycle": "off",
+    "no-plusplus": "off",
+    "no-const": "off",
+    "no-restricted-syntax": "off",
+    "prefer-const": "off",
+    "prefer-arrow-callback": "off",
+    "no-await-in-loop": "off",
+    "no-param-reassign": "off",
+    "no-unused-expressions": "off",
+    "func-names": "off",
+    "no-continue": "off",
+    "quote-props": ["error", "consistent"],
+    "newline-per-chained-call": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "comma-dangle": ["error", "only-multiline"],
+    "operator-linebreak": "off",
+    "object-curly-newline": "off",
+    "@typescript-eslint/no-unused-expressions": ["error", { "allowTernary": true }],
+    "arrow-body-style": "off",
+    "implicit-arrow-linebreak": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/extensions": "never"
+  }
+}
