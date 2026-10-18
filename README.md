@@ -77,7 +77,7 @@ npm run playwright:install
 | С видимым браузером | `npm run test:headed` |
 | Режим отладки | `npm run test:debug` |
 | По названию | `npm run test:grep "название теста"` |
-| По тегу | `npx playwright test -g "@smoke"` |
+| По тегу | `npx playwright test -g "@tag_name"` |
 
 ### Теги
 
