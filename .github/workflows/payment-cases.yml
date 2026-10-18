@@ -6,15 +6,15 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: '0 3 * * *'
+    - cron: '0 3 * * *'            # nightly, 03:00 UTC
   workflow_dispatch:
     inputs:
       grep:
-        description: 'Тег или часть названия (например @smoke). Пусто = весь проект ui'
+        description: 'Название теста или тег (необязательно). Пусто = весь проект ui'
         required: false
         default: ''
 
-
+# Новый пуш в тот же PR отменяет предыдущий прогон
 concurrency:
   group: ui-tests-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -25,10 +25,10 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     env:
       CI: true
-      GREP: ${{ github.event_name == 'pull_request' && '@smoke' || inputs.grep || '' }}
+      GREP: ${{ inputs.grep || '' }}   # заполняется только при ручном запуске
 
     steps:
       - uses: actions/checkout@v4
@@ -47,6 +47,7 @@ jobs:
           path: ~/.cache/ms-playwright
           key: pw-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
+      # Браузер из кэша, системные библиотеки ставим всегда
       - name: Install Playwright (chromium)
         run: |
           if [ "${{ steps.pw-cache.outputs.cache-hit }}" = "true" ]; then
@@ -113,6 +114,7 @@ jobs:
           path: allure-report
           retention-days: 14
 
+      # На Pages публикуем только main и nightly
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
