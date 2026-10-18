@@ -24,6 +24,8 @@ downloads/*
 .agents
 .cursor
 .kiro
-.github
+.github/agents/
+.github/instructions/
+.github/chatmodes/
 .vscode
 .opencode
